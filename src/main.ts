@@ -64,3 +64,38 @@ if (resultadoCarrito) {
   resultadoCarrito.textContent = JSON.stringify(carritoActualizado, null, 2);
 }
 
+
+// EJERCICIO 3: CONSUMO DE API ASÍNCRONA
+
+interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+
+async function obtenerPostPorUsuario(userId: number): Promise<void> {
+  try {
+    // Realizamos la petición a la API
+    const respuesta = await fetch("https://jsonplaceholder.typicode.com/posts");
+
+    // Comprobamos si la petición ha sido correcta
+    if (!respuesta.ok) {
+      throw new Error("Error en la petición");
+    }
+
+    // Convertimos la respuesta a JSON
+    const posts: Post[] = await respuesta.json();
+
+    // Filtramos los posts del usuario indicado
+    const postsUsuario = posts.filter(post => post.userId === userId);
+
+    postsUsuario.forEach(post => console.log(post.title));
+
+  } catch (error) {
+    console.error("Error al obtener los posts:", error);
+  }
+}
+
+// Ejecución de prueba
+obtenerPostPorUsuario(2);
