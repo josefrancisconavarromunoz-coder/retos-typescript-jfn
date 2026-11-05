@@ -34,3 +34,33 @@ if (resultadoFiltro) {
 } else {
   console.error("No se ha encontrado el elemento #resultado-filtro");
 }
+
+
+// EJERCICIO 2: CARRITO
+
+const carritoOriginal = [
+  { id: 101, articulo: "Teclado", precio: 45, cantidad: 1 },
+  { id: 102, articulo: "Cable HDMI", precio: 12, cantidad: 1 },
+];
+
+// Tu código aquí abajo
+
+// Creamos un carrito nuevo con map y spread
+const carritoActualizado = carritoOriginal.map(producto => {
+  if (producto.id === 102) {
+    return {
+      ...producto,
+      cantidad: 3
+    };
+  }
+
+  return producto;
+});
+
+// Mostramos el resultado en el HTML
+const resultadoCarrito = document.querySelector("#resultado-carrito");
+
+if (resultadoCarrito) {
+  resultadoCarrito.textContent = JSON.stringify(carritoActualizado, null, 2);
+}
+
